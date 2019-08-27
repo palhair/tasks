@@ -12,12 +12,58 @@ start();
 
 let appData = {};
 
+appData.n = 1;
 appData.budget = money;
 appData.timeData = time;
 appData.expenses = {};
 appData.optionalExpenses = {};
 appData.income = [];
 appData.savings = true;
+appData.chooseExpenses = function (){
+    for (i = 0; i < 2; i++) {
+        let a = prompt('Введите статью расходов в этом месяце'),
+            b = +prompt('во сколько это обойдется?');
+        if ((typeof (a)) === 'string' && b != null && a != '' && b != '') {
+    
+            appData.expenses[a] = b;
+        } else {
+            i--;
+            alert('введите коректное значение');
+        }
+    
+    }
+}
+
+function detectDayBudget(){
+    appData.moneyPerDay = +(appData.budget/30).toFixed();
+    alert('ежедневный бюджет' + appData.moneyPerDay);
+}
+
+function detectLevel(){
+    if (appData.moneyPerDay < 100) {
+        console.log('Минимальный уровень');
+    } else if (appData.moneyPerDay > 100 && appData.moneyPerDay < 2000) {
+        conole.log("Средний уровень");
+    } else if (appData.moneyPerDay > 2000) {
+        conole.log("Высокий уровень");
+    } else {
+        conole.log('Произошла ошибка');
+    }
+}
+
+function chooseOptExpenses(){
+    for(i = 0; i < 3; i++){
+        let a = prompt('Введите статью расходов в этом месяце');
+        if ((typeof (a)) === 'string' &&  a != '' ) {
+    
+            appData.expenses.n++ = a;
+        } else {
+            i--;
+            alert('введите коректное значение');
+        }
+
+    }
+}
 
 function chooseExpenses(){
     for (i = 0; i < 2; i++) {
@@ -66,7 +112,7 @@ while(n){
 function checkSavings () {
     if(appData.savings) {
         let save = +prompt('Какова сумма накоплений?'),
-        percent = +prompt('Под какой процент?');
+            percent = +prompt('Под какой процент?');
 
         appData.monthIncome = save/100/12*percent;
         alert("Доход в месяц с вашего депозита: " + appData.monthIncome);
@@ -81,3 +127,4 @@ function addChooseExpenses () {
         appData.optionalExpenses[i+1] = answer;
     }
 }
+
